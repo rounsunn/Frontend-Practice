@@ -6,14 +6,15 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ setIsSubmitted }) => {
   const [userName, setUserName] = useState("");
-  const [passwowrd, setPassword] = useState("");
-
-  const [errorMessages, setErrorMessages] = useState({
+  const [password, setPassword] = useState("");
+  const [errorMessages, setErrorMessages] = useState<{
+    name: string;
+    message: string;
+  }>({
     name: "",
     message: "",
   });
 
-  // User Login info
   const database = [
     {
       username: "user1",
@@ -26,30 +27,26 @@ const Form: React.FC<FormProps> = ({ setIsSubmitted }) => {
   ];
 
   const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
+    uname: "Invalid username",
+    pass: "Invalid password",
   };
 
-  const renderErrorMessage = () => {
-    return <p>{errorMessages.message}</p>;
+  const renderErrorMessage = (name: string) => {
+    return name === errorMessages.name && <p>{errorMessages.message}</p>;
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Find user login info
     const userData = database.find((user) => user.username === userName);
 
-    // Compare user info
     if (userData) {
-      if (userData.password !== passwowrd) {
-        // Invalid password
+      if (userData.password !== password) {
         setErrorMessages({ name: "pass", message: errors.pass });
       } else {
         setIsSubmitted(true);
       }
     } else {
-      // Username not found
       setErrorMessages({ name: "uname", message: errors.uname });
     }
   };
@@ -61,22 +58,22 @@ const Form: React.FC<FormProps> = ({ setIsSubmitted }) => {
         <input
           type="text"
           className="form-control"
-          placeholder="username"
+          placeholder="Username"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
         />
-        {renderErrorMessage()}
+        {renderErrorMessage("uname")}
       </div>
       <div>
-        <label htmlFor="password">Passowwrd:</label>
+        <label htmlFor="password">Password:</label>
         <input
           type="password"
           className="form-control"
-          placeholder="password"
-          value={passwowrd}
+          placeholder="Password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {renderErrorMessage()}
+        {renderErrorMessage("pass")}
       </div>
       <button type="submit" className="btn btn-primary mt-3">
         Submit
