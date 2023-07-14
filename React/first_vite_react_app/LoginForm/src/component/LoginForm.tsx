@@ -5,10 +5,13 @@ const LoginForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   return (
-    <div className="container">
+    <div className="form-container">
       <h1>SignIn</h1>
-      {isSubmitted} ? <h3>SignIn successful</h3> :{" "}
-      <Form setIsSubmitted={setIsSubmitted} />
+      {isSubmitted ? (
+        <h3>SignIn successful</h3>
+      ) : (
+        <Form setIsSubmitted={setIsSubmitted} />
+      )}
     </div>
   );
 };
