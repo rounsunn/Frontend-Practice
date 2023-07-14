@@ -1,0 +1,143 @@
+/* by default positins are static */
+/* .parent {
+  padding: 1em 1em;
+  background-color: red;
+}
+
+.child1 {
+  background-color: blue;
+}
+
+.child2 {
+  background-color: green;
+}
+
+.child3 {
+  background-color: white;
+} 
+
+*/
+
+
+
+/* 
+relative position - relative - takes the element out of the natural flow, 
+sibling elemnts know about its presence, respect its space 
+but can overlap and based on z-index the element appears on top of other
+*/
+/* .parent1 {
+  padding: 1em 1em;
+  margin: 0;
+  background-color: red;
+}
+
+.child1 {
+  background-color: blue;
+  position: relative;
+  top: 15px;
+  left: 15px;
+}
+
+.child2 {
+  background-color: green;
+}
+
+.child3 {
+  background-color: white;
+}
+*/
+
+
+
+/* 
+position: absolute, element positioned absolute decides its poition 
+  relative to an elemnt with position other than static
+same as relative, element is taken out of natural flow, siblings dont know about its presence
+and the position of elements can overlap and wwhich will apear on top - z-index
+
+*/
+/* .parent1 {
+  padding: 1em 1em;
+  margin: 0;
+  background-color: red;
+  position: relative;
+}
+
+.parent1 .child1 {
+  background-color: blue;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+}
+
+.parent1 .child2 {
+  background-color: green;
+}
+
+.parent1 .child3 {
+  background-color: white;
+}
+*/
+
+
+/* 
+position - fixed, element position is relative to window, document
+taken out of the natural flow, top left ... if specified then 
+otherwise default will be its original position see for child2 left is same as child3
+// child1  - its position will be relative to parent1 bcs that is fixed position element
+// child2  - relative to document hence top: 0px sticks to top, but llok left is still original as child3 
+*/
+/* .parent1 {
+  height: 200vh;
+  padding: 1em 1em;
+  margin: 0;
+  background-color: red;
+  position: fixed;
+}
+
+.parent1 .child1 {
+  background-color: blue;
+  position: absolute; 
+  top: 15px;
+  left: 0px;
+}
+
+.parent1 .child2 {
+  position: fixed;
+  top: 0px;
+  background-color: green;
+}
+
+.parent1 .child3 {
+  background-color: white;
+} */
+
+/* 
+position: sticky
+*/
+.parent1 {
+  height: 200vh;
+  padding: 1em 1em;
+  margin: 0;
+  background-color: red;
+}
+
+.parent1 .child1 {
+  background-color: blue;
+  position: sticky;
+  top: 20px;
+  left: 300px;
+}
+
+.parent1 .child2 {
+  background-color: green;
+}
+
+.parent1 .child3 {
+  background-color: white;
+  position: sticky;
+  top: 0px;
+  left: 50px;
+} 
+
+
