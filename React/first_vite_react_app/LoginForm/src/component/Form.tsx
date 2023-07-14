@@ -8,7 +8,10 @@ const Form: React.FC<FormProps> = ({ setIsSubmitted }) => {
   const [userName, setUserName] = useState("");
   const [passwowrd, setPassword] = useState("");
 
-  // const [errorMessages, setErrorMessages] = useState({});
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    message: "",
+  });
 
   // User Login info
   const database = [
@@ -22,6 +25,15 @@ const Form: React.FC<FormProps> = ({ setIsSubmitted }) => {
     },
   ];
 
+  const errors = {
+    uname: "invalid username",
+    pass: "invalid password",
+  };
+
+  const renderErrorMessage = () => {
+    return <p>{errorMessages.message}</p>;
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -32,34 +44,40 @@ const Form: React.FC<FormProps> = ({ setIsSubmitted }) => {
     if (userData) {
       if (userData.password !== passwowrd) {
         // Invalid password
-        // setErrorMessages({ name: "pass", message: errors.pass });
+        setErrorMessages({ name: "pass", message: errors.pass });
       } else {
         setIsSubmitted(true);
       }
     } else {
       // Username not found
-      // setErrorMessages({ name: "uname", message: errors.uname });
+      setErrorMessages({ name: "uname", message: errors.uname });
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="username"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <label htmlFor="password">Passowwrd:</label>
-      <input
-        type="password"
-        className="form-control"
-        placeholder="password"
-        value={passwowrd}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div>
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="username"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        {renderErrorMessage()}
+      </div>
+      <div>
+        <label htmlFor="password">Passowwrd:</label>
+        <input
+          type="password"
+          className="form-control"
+          placeholder="password"
+          value={passwowrd}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {renderErrorMessage()}
+      </div>
       <button type="submit" className="btn btn-primary mt-3">
         Submit
       </button>
