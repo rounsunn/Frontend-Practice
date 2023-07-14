@@ -1,0 +1,16 @@
+Setting Up the Development Environment 4
+
+Using vite - faster and good developing experience
+npm create vite@latest @4.1.0
+Y
+Project name
+React project
+Language - typescript
+Cd into folder
+Install 3rd party library - npm install
+npm run dev
+
+Install bootstrap
+npm i botstrap@latest @5.2.3
+Remove app.css and delete index.css
+Import bootstrap - import ‘boostrap/dist/css/bootstrap.css’
