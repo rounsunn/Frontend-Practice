@@ -3,9 +3,16 @@ import axios from "axios";
 
 interface FormProps {
   setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LoginForm: React.FC<FormProps> = ({ setIsSubmitted }) => {
+interface ApiResponse {
+  status: string;
+  dataset: { Id: string };
+  message: string;
+}
+
+const LoginForm: React.FC<FormProps> = ({ setIsSubmitted, setUserId }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState<{
@@ -16,51 +23,39 @@ const LoginForm: React.FC<FormProps> = ({ setIsSubmitted }) => {
     message: "",
   });
 
-  // const errors = {
-  //   email: "Invalid email",
-  //   pass: "Invalid password",
-  // };
-
   const renderErrorMessage = (name: string) => {
     return name === errorMessages.name && <p>{errorMessages.message}</p>;
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      const response = await axios.post(
+    axios
+      .post(
         "https://dev123.gigin.ai/abc/index.php/Api_controller/login_email",
         {
           email: email,
           password: password,
         }
-      );
-      console.log("resposne: ", response);
-      if (response.data.status !== "fail") {
-        setIsSubmitted(true);
-      } else {
-        console.log(response.data);
-        setErrorMessages({
-          name: "pass",
-          message: response.data.dataset || response.data.message,
-        });
-      }
-    } catch (err) {
-      console.log("Error: ", err);
-    }
+      )
+      .then((response) => {
+        console.log("response: ", response);
+        const responseData = response.data as ApiResponse;
 
-    // const userData = database.find((user) => user.username === userName);
-
-    // if (userData) {
-    //   if (userData.password !== password) {
-    //     setErrorMessages({ name: "pass", message: errors.pass });
-    //   } else {
-    //     setIsSubmitted(true);
-    //   }
-    // } else {
-    //   setErrorMessages({ name: "uname", message: errors.uname });
-    // }
+        if (responseData.status !== "fail") {
+          setIsSubmitted(true);
+          setUserId(responseData.dataset.Id);
+        } else {
+          console.log(responseData);
+          setErrorMessages({
+            name: "pass",
+            message: responseData.dataset || responseData.message,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
   };
 
   return (
