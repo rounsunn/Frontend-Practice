@@ -5,15 +5,19 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState<string>("");
+
+  const handleLogin = (userId: string) => {
+    setIsSubmitted(true);
+    setUserId(userId);
+  };
 
   return (
-    <div className="form-container">
-      <h1>SignIn</h1>
+    <div className="container">
       {isSubmitted ? (
         <JobListing userId={userId} />
       ) : (
-        <LoginForm setIsSubmitted={setIsSubmitted} setUserId={setUserId} />
+        <LoginForm handleLogin={handleLogin} />
       )}
     </div>
   );

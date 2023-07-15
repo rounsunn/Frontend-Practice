@@ -1,4 +1,4 @@
-.form-container {
+.container {
   font-family: sans-serif;
   display: flex;
   align-items: center;
@@ -7,5 +7,11 @@
   gap: 20px;
   height: 100vh;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  /* background-color: #f8f9fd; */
+}
+
+
+.form-container {
   background-color: #f8f9fd;
+  height: auto;
 }
